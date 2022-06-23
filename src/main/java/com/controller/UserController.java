@@ -4,6 +4,7 @@ import com.dao.UserDao;
 import com.dto.UserDTO;
 import com.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/create")
     public String create(Model model){
@@ -33,7 +37,7 @@ public class UserController {
         User user = new User();
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
 //        user.setRole(Role.valueOf(userDTO.getRole()));
 
