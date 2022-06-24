@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: USER
@@ -15,5 +16,8 @@
 <h1>This is home page</h1>
 <h2>Spring project successfully running now</h2>
 <a href="/user/create" class="btn btn-primary m-5">Create user</a>
+<form:form action="${pageContext.request.contextPath}/logout" method="post">
+    <input type="submit" value="Logout" class="btn btn-primary m-2"/>
+</form:form>
 </body>
 </html>

@@ -28,10 +28,36 @@ public class SecurityConfig {
     public void configure(AuthenticationManagerBuilder managerBuilder) throws Exception {
         managerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .authorizeHttpRequests((authz) -> authz.anyRequest().authenticated()).httpBasic(withDefaults());
+                .authorizeRequests()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/showMyCustomLoginPage")
+                .loginProcessingUrl("/authenticateTheUser")
+                .permitAll()
+                .and()
+                .logout().permitAll();
+
         return http.build();
     }
+
+//    @Autowired
+//    public void configure(HttpSecurity http) throws Exception{
+//        http
+//                .authorizeRequests()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin()
+//                .loginPage("/showMyCustomLoginPage")
+//                .loginProcessingUrl("/authenticateTheUser")
+//                .permitAll();
+//    }
+
+
+
+
 }
