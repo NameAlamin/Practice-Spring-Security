@@ -87,7 +87,7 @@
 
     <form:form action="${pageContext.request.contextPath}/authenticateTheUser" method="POST" class="form-control" >
         <div class="loginbox">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+<%--            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
             <h1 class="text-center fs-3 pb-3">Login Here</h1>
             <c:if test="${param.error != null}">
                 <i class="text-danger">Sorry! you entered invalid username/password</i>
