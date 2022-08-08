@@ -33,17 +33,50 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
+//                .anyRequest().authenticated()
+                .antMatchers("/dashboard/admin/**").hasRole("ADMIN")
+                .antMatchers("/dashboard/teacher/**").hasRole("TEACHER")
+                .antMatchers("/dashboard/student/**").hasRole("STUDENT")
                 .anyRequest().authenticated()
+                // configuring our login form
                 .and()
-                .formLogin()
-                .loginPage("/showMyCustomLoginPage")
-                .loginProcessingUrl("/authenticateTheUser")
-                .permitAll()
-                .and()
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                        .usernameParameter("username")
+                        .passwordParameter("password")
+                        .loginProcessingUrl("/authenticateTheUser")
+                        .permitAll()
+                )
                 .logout().permitAll();
+
+
+
+
+//                .antMatchers("/admin").hasAuthority("ADMIN")
+//                .antMatchers("/teacher").hasAuthority("TEACHER")
+//                .antMatchers("/student").hasAuthority("STUDENT")
+//                .and()
+//                .formLogin()
+//                .loginPage("/showMyCustomLoginPage")
+//                .loginProcessingUrl("/authenticateTheUser")
+//                .permitAll()
+//                .and()
+//                .logout().permitAll();
 
         return http.build();
     }
+
+
+
+
+
+
+
+
+
+
+
 
 //    @Autowired
 //    public void configure(HttpSecurity http) throws Exception{
@@ -56,8 +89,4 @@ public class SecurityConfig {
 //                .loginProcessingUrl("/authenticateTheUser")
 //                .permitAll();
 //    }
-
-
-
-
 }

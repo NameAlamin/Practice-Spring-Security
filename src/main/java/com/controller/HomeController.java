@@ -19,4 +19,16 @@ public class HomeController {
         model.addAttribute("roles",authorities);
         return "home";
     }
+    @GetMapping("/dashboard/admin")
+    public String showAdminDashboard(){
+        return "dashboard/admin";
+    }
+    @GetMapping("/dashboard/teacher")
+    public String showTeacherDashboard(){
+        return "dashboard/teacher";
+    }
+    @GetMapping("/dashboard/student")
+    public String showStudentDashboard(){
+        return "dashboard/student";
+    }
 }
